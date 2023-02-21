@@ -24,12 +24,15 @@ def todo_serializer(todo) -> dict:
         "description": todo["description"]
     }
 
-def user_serializer(user) -> dict:
+def user_serializer(user) -> Union[dict, bool]:
     return {
         "id": str(user["_id"]),
+        "username": user["username"],
         "email": user["email"],
         "birthday": user["birthday"],
-        "avatar": user["avatar"]
+        "avatar": user["avatar"],
+        "gender": user["gender"],
+        "agreement": user["agreement"]
     }
 
 
