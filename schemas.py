@@ -30,11 +30,11 @@ class UserBody(BaseModel):
 
 class UserInfo(BaseModel):
     id: Optional[str] = None
-    username: str
+    username: Optional[str] = None
     email: str
-    birthday: str
-    avatar: str
-    gender: str
+    birthday: Optional[str] = None
+    avatar: Optional[str] = None
+    gender: Optional[str] = None
 
 class Csrf(BaseModel):
     csrf_token: str

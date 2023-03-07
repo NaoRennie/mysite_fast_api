@@ -10,7 +10,7 @@ from fastapi_csrf_protect.exceptions import CsrfProtectError
 app = FastAPI()
 app.include_router(route_todo.router)
 app.include_router(route_auth.router)
-origins = ['http://localhost:3000', 'http://localhost:3000/todo']
+origins = ['http://localhost:3000']
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
