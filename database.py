@@ -101,3 +101,9 @@ async def db_login(data: dict) -> str:
             status_code=401, detail='Invalid email or password')
     token = auth.encode_jwt(user['email'])
     return token
+
+async def db_get_user(email:str) -> Union[dict, bool]:
+    user = await collection_user.find_one({"email": email})
+    if user:
+        return user_serializer(user)
+    return False

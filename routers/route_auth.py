@@ -5,6 +5,7 @@ from schemas import UserBody, SuccessMsg, UserInfo, Csrf
 from database import (
     db_signup,
     db_login,
+    db_get_user
 )
 from auth_utils import AuthJwtCsrf
 from fastapi_csrf_protect import CsrfProtect
@@ -50,9 +51,11 @@ def logout(request: Request, response: Response, csrf_protect: CsrfProtect = Dep
 
 
 @router.get('/api/user', response_model=UserInfo)
-def get_user_refresh_jwt(request: Request, response: Response):
+async def get_user_refresh_jwt(request: Request, response: Response):
     new_token, subject = auth.verify_update_jwt(request)
     response.set_cookie(
         key="access_token", value=f"Bearer {new_token}", httponly=True, samesite="none", secure=True)
     print(subject, "this is subject")
-    return {'email': subject}
+    res = await db_get_user(subject)
+
+    return res
